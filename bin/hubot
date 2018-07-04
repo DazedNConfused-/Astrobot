@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Based on the following articles:
+#   https://gist.github.com/technicalpickles/5941963c502dc43d9d07
+#   https://medium.com/@newtmitch/hubot-debugging-and-me-bccb33365710
+
+set -e
+
+npm install
+export PATH="node_modules/.bin:node_modules/hubot/node_modules/.bin:$PATH"
+
+for opt in $* ; do
+  case "$opt" in
+    --debug) hubot_debug="coffee --nodejs --inspect"
+    shift;;
+  esac
+done
+
+exec ${hubot_debug} node_modules/.bin/hubot --name "Astrobot" "$@"
