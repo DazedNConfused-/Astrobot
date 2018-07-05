@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "author": "Gonzalo López <gonzalo.1.lopez@monsanto.com>",
-  "description": "A SlackBot experiment",
+  "description": "Aldebaran's private butler",
   "dependencies": {
     "hubot": "^2.19.0",
+    "hubot-catme": "^1.0.0",
     "hubot-diagnostics": "0.0.2",
+    "hubot-env": "0.0.2",
     "hubot-google-images": "^0.2.7",
     "hubot-google-translate": "^0.2.1",
     "hubot-help": "^0.2.2",
@@ -17,10 +19,7 @@
     "hubot-rules": "^0.1.2",
     "hubot-scripts": "^2.17.2",
     "hubot-shipit": "^0.2.1",
-    "hubot-slack": "^4.5.1"
-  },
-  "devDependencies": {
-    "coffee-script": "^1.12.6"
+    "hubot-slack": "^4.5.2"
   },
   "engines": {
     "node": "0.10.x"

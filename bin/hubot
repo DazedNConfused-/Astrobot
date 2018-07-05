@@ -9,11 +9,21 @@ set -e
 npm install
 export PATH="node_modules/.bin:node_modules/hubot/node_modules/.bin:$PATH"
 
-for opt in $* ; do
-  case "$opt" in
-    --debug) hubot_debug="coffee --nodejs --inspect"
-    shift;;
-  esac
+for i in "$@"
+do
+case $i in
+    -d|--debug)
+    hubot_debug="coffee --nodejs --inspect"
+    shift # past argument with no value
+    ;;
+    -st=*|--slack-token=*)
+    export HUBOT_SLACK_TOKEN="${i#*=}"
+    shift # past argument=value
+    ;;
+    *)
+    # unknown option - may be a Hubot parameter, ignore
+    ;;
+esac
 done
 
 exec ${hubot_debug} node_modules/.bin/hubot --name "Astrobot" "$@"
