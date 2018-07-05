@@ -10,9 +10,6 @@
 
 module.exports = (robot) ->
 
-  robot.hear /(.*)pull/i, (res) ->
-    res.send "https://image.ibb.co/mXrqMd/download.jpg"
-
   # robot.hear /badger/i, (res) ->
   #   res.send "Badgers? BADGERS? WE DON'T NEED NO STINKIN BADGERS"
   #

@@ -5,6 +5,7 @@
   "author": "Gonzalo López <gonzalo.1.lopez@monsanto.com>",
   "description": "Aldebaran's private butler",
   "dependencies": {
+    "@slack/client": "^4.3.1",
     "hubot": "^2.19.0",
     "hubot-catme": "^1.0.0",
     "hubot-diagnostics": "0.0.2",
