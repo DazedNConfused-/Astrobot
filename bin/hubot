@@ -3,6 +3,7 @@
 # Based on the following articles:
 #   https://gist.github.com/technicalpickles/5941963c502dc43d9d07
 #   https://medium.com/@newtmitch/hubot-debugging-and-me-bccb33365710
+#   https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
 
 set -e
 
@@ -20,10 +21,21 @@ case $i in
     export HUBOT_SLACK_TOKEN="${i#*=}"
     shift # past argument=value
     ;;
+    --adapter=*)
+    echo "Adapter flag should be passed as a bot parameter, not a script one (ie: --adapter slack). Don't worry, will fix this for you..."
+    hubot_adapter="${i#*=}"
+    shift # past argument=value
+    ;;
     *)
     # unknown option - may be a Hubot parameter, ignore
     ;;
 esac
 done
 
-exec ${hubot_debug} node_modules/.bin/hubot --name "Astrobot" "$@"
+if [ -z ${hubot_adapter+x} ]; then
+  # echo "hubot_adapter is unset";
+  exec ${hubot_debug} node_modules/.bin/hubot --name "Astrobot" "$@"
+else
+  # echo "hubot_adapter is set to '$hubot_adapter'";
+  exec ${hubot_debug} node_modules/.bin/hubot --name "Astrobot" "$@" --adapter ${hubot_adapter}
+fi
