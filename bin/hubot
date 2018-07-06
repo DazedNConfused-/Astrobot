@@ -10,6 +10,7 @@ set -e
 npm install
 export PATH="node_modules/.bin:node_modules/hubot/node_modules/.bin:$PATH"
 
+# Parse script & bot params
 for i in "$@"
 do
 case $i in
@@ -32,6 +33,21 @@ case $i in
 esac
 done
 
+# Determine current directory for Hubot-startup-script, following symlinks
+# https://stackoverflow.com/a/246128
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+THIS_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+# Change to script's parent directory (necessary if script is being externally executed - ie: from a symlink)
+cd ${THIS_DIR}
+cd ..
+
+# Execute Hubot and pass parameters
 if [ -z ${hubot_adapter+x} ]; then
   # echo "hubot_adapter is unset";
   exec ${hubot_debug} node_modules/.bin/hubot --name "Astrobot" "$@"
