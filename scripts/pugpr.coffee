@@ -11,7 +11,7 @@
 #   None - Just need a string to match 'pull/<number>'
 
 module.exports = (robot) ->
-  robot.hear /(.*)pull/i, (msg) ->
+  robot.respond /(.*)pull/i, (msg) ->
     msg.http("http://pugme.herokuapp.com/random")
       .get() (err, res, body) ->
         msg.send JSON.parse(body).pug
